@@ -243,6 +243,130 @@ async function main() {
         listingType: 'Sell',
         categoryId: sports.id,
         sellerId: seller.id,
+      },
+      {
+        name: 'Apple iPad 9th Gen (WiFi, 64GB)',
+        description: 'Perfect for taking digital notes in lectures. Comes with a compatible active stylus pencil, protective case, and charger. No scratches, display is perfect.',
+        price: 18500.00,
+        imageUrl: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500',
+        imagesJson: JSON.stringify([
+          'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500'
+        ]),
+        condition: 'Used',
+        collegeName: 'Sri Shanmugha College of Engineering and Technology, Salem',
+        contactDetails: 'Aswin - 9876543210',
+        listingType: 'Sell',
+        department: 'B.E. Computer Science & Engineering (CSE)',
+        semester: 3,
+        categoryId: electronics.id,
+        sellerId: seller.id,
+      },
+      {
+        name: 'HP LaserJet Pro Monochrome Printer',
+        description: 'Hostel room essential. Print all your lab records, seminar reports, and assignments yourself. High speed, extremely cheap toner replacement.',
+        price: 4200.00,
+        imageUrl: 'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=500',
+        imagesJson: JSON.stringify([
+          'https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=500'
+        ]),
+        condition: 'Used',
+        collegeName: 'Sri Shanmugha College of Engineering and Technology, Salem',
+        contactDetails: 'Aswin - 9876543210',
+        listingType: 'Sell',
+        categoryId: electronics.id,
+        sellerId: seller.id,
+      },
+      {
+        name: 'Prestige 1.5L Cordless Electric Kettle',
+        description: 'Ideal for late-night hostel study sessions. Boil water, make green tea, coffee, or instant noodles in seconds. Auto-shutoff safety feature.',
+        price: 650.00,
+        imageUrl: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500',
+        imagesJson: JSON.stringify([
+          'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500'
+        ]),
+        condition: 'New',
+        collegeName: 'Sri Shanmugha College of Engineering and Technology, Salem',
+        contactDetails: 'Suresh - 7654321098',
+        listingType: 'SellOrExchange',
+        categoryId: electronics.id,
+        sellerId: seller.id,
+      },
+      {
+        name: 'Wildcraft Campus Water-Resistant Backpack',
+        description: 'Super durable campus backpack. Three spacious compartments, padded laptop sleeve, side bottle holders. Water-resistant material, perfect for monsoons.',
+        price: 850.00,
+        imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500',
+        imagesJson: JSON.stringify([
+          'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500'
+        ]),
+        condition: 'Used',
+        collegeName: 'Sri Shanmugha College of Engineering and Technology, Salem',
+        contactDetails: 'Suresh - 7654321098',
+        listingType: 'Sell',
+        categoryId: apparel.id,
+        sellerId: seller.id,
+      },
+      {
+        name: 'Black Slim-Fit placement Blazer (Size M)',
+        description: 'Premium black formal blazer for campus placements, interviews, and department seminars. Worn only twice, dry-cleaned, brand-new condition.',
+        price: 1800.00,
+        imageUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500',
+        imagesJson: JSON.stringify([
+          'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500'
+        ]),
+        condition: 'Used',
+        collegeName: 'Sri Shanmugha College of Engineering and Technology, Salem',
+        contactDetails: 'Vijay - 6543210987',
+        listingType: 'Sell',
+        categoryId: apparel.id,
+        sellerId: seller.id,
+      },
+      {
+        name: 'Yonex Carbonex 8000 Light Badminton Racket',
+        description: 'Graphite badminton racket for evening hostel games. Lightweight design with high tension stringing. Includes protective zipper head cover.',
+        price: 1200.00,
+        imageUrl: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=500',
+        imagesJson: JSON.stringify([
+          'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=500'
+        ]),
+        condition: 'Used',
+        collegeName: 'Sri Shanmugha College of Engineering and Technology, Salem',
+        contactDetails: 'Vijay - 6543210987',
+        listingType: 'SellOrExchange',
+        categoryId: sports.id,
+        sellerId: seller.id,
+      },
+      {
+        name: 'Staedtler Mars Lumograph Drawing Pencils Set',
+        description: 'Complete set of 12 premium quality drawing pencils (12B to 2H). Essential for first-year Engineering Graphics (EG) drawing class. 90% lead remaining.',
+        price: 250.00,
+        imageUrl: 'https://images.unsplash.com/photo-1519750783826-e2420f4d687c?w=500',
+        imagesJson: JSON.stringify([
+          'https://images.unsplash.com/photo-1519750783826-e2420f4d687c?w=500'
+        ]),
+        condition: 'Used',
+        collegeName: 'Sri Shanmugha College of Engineering and Technology, Salem',
+        contactDetails: 'Rahul - 8765432109',
+        listingType: 'Donate',
+        department: 'B.E. Mechanical Engineering (Mech)',
+        semester: 1,
+        categoryId: stationery.id,
+        sellerId: seller.id,
+      },
+      {
+        name: 'Philips LED Desk Study Lamp',
+        description: 'Adjustable gooseneck study lamp. Padded heavy base, cool daylight LED bulb included. Reduces eye strain during late-night exam preparations.',
+        price: 490.00,
+        imageUrl: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500',
+        imagesJson: JSON.stringify([
+          'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500'
+        ]),
+        condition: 'Used',
+        collegeName: 'Sri Shanmugha College of Engineering and Technology, Salem',
+        contactDetails: 'Rahul - 8765432109',
+        listingType: 'Sell',
+        categoryId: electronics.id,
+        sellerId: seller.id,
       }
     ],
   });

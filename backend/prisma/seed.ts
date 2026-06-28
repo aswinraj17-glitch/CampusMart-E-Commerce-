@@ -339,9 +339,9 @@ async function main() {
       name: 'Staedtler Mars Lumograph Drawing Pencils Set',
       description: 'Complete set of 12 premium quality drawing pencils (12B to 2H). Essential for first-year Engineering Graphics (EG) drawing class. 90% lead remaining.',
       price: 250.00,
-      imageUrl: 'https://images.unsplash.com/photo-1519750783826-e2420f4d687c?w=500',
+      imageUrl: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500',
       imagesJson: JSON.stringify([
-        'https://images.unsplash.com/photo-1519750783826-e2420f4d687c?w=500'
+        'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=500'
       ]),
       condition: 'Used',
       collegeName: 'Sri Shanmugha College of Engineering and Technology, Salem',
@@ -374,13 +374,13 @@ async function main() {
       id: electronics.id,
       templates: [
         { name: 'Lenovo ThinkPad L14 Gen 2 Laptop', desc: 'Intel Core i5, 16GB RAM, 512GB SSD. Built tough for programming, database courses, and final year projects. Great battery life.', price: 24500, img: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500' },
-        { name: 'Redmi 20000mAh Power Bank (18W Fast Charging)', desc: 'Dual output charging ports, ideal for student travels and long lecture days. Charges your phone 4 times fully.', price: 1100, img: 'https://images.unsplash.com/photo-1609592424085-f685958615fa?w=500' },
+        { name: 'Redmi 20000mAh Power Bank (18W Fast Charging)', desc: 'Dual output charging ports, ideal for student travels and long lecture days. Charges your phone 4 times fully.', price: 1100, img: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500' },
         { name: 'Logitech Wireless Keyboard & Mouse Combo MK220', desc: 'Compact wireless set. 1 year old, batteries included. Perfect desktop addition for laptop coding setups.', price: 990, img: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=500' },
         { name: 'Seagate Backup Plus 1TB External Hard Drive', desc: 'Backup all your college study drives, syllabus resources, books, and software setups. USB 3.0 support.', price: 2300, img: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500' },
-        { name: 'Arduino Uno Starter Project Kit with Sensors', desc: 'Breadboard, jumper cables, resistors, ultrasonic sensor, IR remote, active buzzer, and LEDs. Perfect for EEE/ECE/CSE labs.', price: 650, img: 'https://images.unsplash.com/photo-1553406830-ef25136797e3?w=500' },
-        { name: 'Raspberry Pi 4 Model B (4GB RAM) Complete kit', desc: 'High performance micro-computer. Comes with official red-white case, charger, and a preloaded 32GB MicroSD card.', price: 3950, img: 'https://images.unsplash.com/photo-1551645121-d1034da75057?w=500' },
+        { name: 'Arduino Uno Starter Project Kit with Sensors', desc: 'Breadboard, jumper cables, resistors, ultrasonic sensor, IR remote, active buzzer, and LEDs. Perfect for EEE/ECE/CSE labs.', price: 650, img: 'https://images.unsplash.com/photo-1608564697071-ddf911d81370?w=500' },
+        { name: 'Raspberry Pi 4 Model B (4GB RAM) Complete kit', desc: 'High performance micro-computer. Comes with official red-white case, charger, and a preloaded 32GB MicroSD card.', price: 3950, img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=500' },
         { name: 'Prestige 1.8L Electric Multicooker & Kettle', desc: 'Essential hostel room cooking appliance. Boil milk, cook instant noodles, eggs, or oatmeal in minutes.', price: 850, img: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?w=500' },
-        { name: 'Bajaj Majesty DX-7 Dry Iron Box', desc: 'Lightweight non-stick dry iron box. Essential for keeping placement formal outfits crisp and ready.', price: 450, img: 'https://images.unsplash.com/photo-1563810141675-9c86a8ff7ef9?w=500' }
+        { name: 'Bajaj Majesty DX-7 Dry Iron Box', desc: 'Lightweight non-stick dry iron box. Essential for keeping placement formal outfits crisp and ready.', price: 450, img: 'https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?w=500' }
       ]
     },
     {
@@ -406,7 +406,7 @@ async function main() {
       id: sports.id,
       templates: [
         { name: 'Yonex Voltric 0.5DG Badminton Racket', desc: 'Full graphite badminton racket. High tension, powerful smash control. Selling as I am graduating this month.', price: 1450, img: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=500' },
-        { name: 'Nivia Classic Black & White Football (Size 5)', desc: 'Standard size hand-stitched TPU leather football. Perfect for playing on turf or college fields.', price: 490, img: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=500' },
+        { name: 'Nivia Classic Black & White Football (Size 5)', desc: 'Standard size hand-stitched TPU leather football. Perfect for playing on turf or college fields.', price: 490, img: 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=500' },
         { name: 'Nivia Heavy Weight Yellow Tennis Balls (Pack of 3)', desc: 'High bounce, highly durable rubber tennis balls. Ideal for campus hostel hallway games.', price: 150, img: 'https://images.unsplash.com/photo-1531315630201-bb15abeb1653?w=500' }
       ]
     },
@@ -414,7 +414,7 @@ async function main() {
       id: stationery.id,
       templates: [
         { name: 'Staedtler Geometric Compass Drawing Set', desc: 'Precision compass kit with adjustment wheel. Excellent for engineering drawing sheets.', price: 290, img: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=500' },
-        { name: 'Staedtler Acrylic Drawing Set Squares (Set of 2)', desc: 'Professional acrylic set squares with clear degree graduations. Used in drafting/graphics class.', price: 180, img: 'https://images.unsplash.com/photo-1586075010923-2dd45e9b2d4f?w=500' },
+        { name: 'Staedtler Acrylic Drawing Set Squares (Set of 2)', desc: 'Professional acrylic set squares with clear degree graduations. Used in drafting/graphics class.', price: 180, img: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=500' },
         { name: 'Parker Vector Black Matte Fountain Pen', desc: 'Matte black premium ink pen. Excellent styling for writing exams or lab logs.', price: 390, img: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=500' }
       ]
     }

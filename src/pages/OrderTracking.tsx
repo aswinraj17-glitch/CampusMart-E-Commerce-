@@ -119,6 +119,44 @@ export default function OrderTracking() {
         </div>
       </div>
 
+      {/* Handover Location Spot Map */}
+      <div className="glass" style={{ padding: '1.5rem', borderRadius: '16px', marginBottom: '2.5rem' }}>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          🗺️ Meet-up Handover Tracker Map
+        </h2>
+        
+        {/* Dynamic Google Map Embed */}
+        <div style={{ borderRadius: '12px', overflow: 'hidden', height: '350px', border: '1px solid var(--card-border)', background: 'rgba(0,0,0,0.2)' }}>
+          <iframe
+            title="Handover Spot Map"
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            style={{ border: 0 }}
+            src={`https://maps.google.com/maps?q=${encodeURIComponent(
+              (order.meetup?.location ? order.meetup.location + ', ' : '') + order.addressLine + ', ' + order.city
+            )}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
+            allowFullScreen
+          />
+        </div>
+        
+        {/* Simulated Handover Distance Info */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
+          <div>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Destination Spot:</span>
+            <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--accent-secondary)' }}>
+              📍 {order.meetup?.location || order.addressLine}
+            </div>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Seller Proximity:</span>
+            <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#34d399' }}>
+              {order.status === 'Delivered' ? '✅ Arrived at meet-up spot' : '📡 Connected - Live Radar Tracking'}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Shipping Address and Items split */}
       <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: '2rem', alignItems: 'start' }}>
         

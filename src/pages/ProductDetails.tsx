@@ -35,6 +35,9 @@ export default function ProductDetails() {
   // Seller average rating state
   const [sellerAvgRating, setSellerAvgRating] = useState<number | null>(null);
 
+  // Active product image index for multiple uploads gallery
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
   const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
   const fetchProductDetails = async () => {
@@ -132,6 +135,7 @@ export default function ProductDetails() {
   useEffect(() => {
     fetchProductDetails();
     checkWishlistStatus();
+    setActiveImageIndex(0);
   }, [id]);
 
   const handleToggleWishlist = async () => {
@@ -303,6 +307,18 @@ export default function ProductDetails() {
   const isSwappable = product.listingType === 'Exchange' || product.listingType === 'SellOrExchange';
   const isDonation = product.listingType === 'Donate';
 
+  // Parse imagesJson from database
+  let imagesList: string[] = [];
+  if (product && product.imagesJson) {
+    try {
+      imagesList = JSON.parse(product.imagesJson);
+    } catch (err) {
+      imagesList = product.imageUrl ? [product.imageUrl] : [];
+    }
+  } else if (product && product.imageUrl) {
+    imagesList = [product.imageUrl];
+  }
+
   return (
     <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '1rem' }}>
       
@@ -311,12 +327,36 @@ export default function ProductDetails() {
         {/* Product Image Panel */}
         <div>
           <div className="glass" style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--card-border)', background: 'rgba(255, 255, 255, 0.02)', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '380px' }}>
-            {product.imageUrl ? (
-              <img src={product.imageUrl} alt={product.name} style={{ maxWidth: '100%', maxHeight: '400px', borderRadius: '12px', objectFit: 'contain' }} />
+            {imagesList.length > 0 ? (
+              <img src={imagesList[activeImageIndex]} alt={product.name} style={{ maxWidth: '100%', maxHeight: '400px', borderRadius: '12px', objectFit: 'contain' }} />
             ) : (
               <span style={{ fontSize: '6rem' }}>📦</span>
             )}
           </div>
+
+          {imagesList.length > 1 && (
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '1rem', justifyContent: 'center' }}>
+              {imagesList.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveImageIndex(idx)}
+                  style={{
+                    padding: 0,
+                    border: idx === activeImageIndex ? '2px solid var(--accent-primary)' : '1px solid var(--card-border)',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    width: '60px',
+                    height: '60px',
+                    background: 'none',
+                    cursor: 'pointer',
+                    opacity: idx === activeImageIndex ? 1 : 0.6
+                  }}
+                >
+                  <img src={img} alt="thumbnail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Product Details Panel */}

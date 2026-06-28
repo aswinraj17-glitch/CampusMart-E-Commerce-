@@ -19,6 +19,9 @@ export default function SellerDashboard() {
   const [orders, setOrders] = useState<any[]>([]);
   const [ordersLoading, setOrdersLoading] = useState(false);
 
+  // Multiple Images State
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+
   // Form States (for Create / Edit)
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState<number | null>(null);
@@ -45,10 +48,6 @@ export default function SellerDashboard() {
     if (!token) {
       navigate('/login');
       return;
-    }
-    // Block unverified students from using seller options!
-    if (user && user.verificationStatus !== 'Verified' && user.role !== 'admin') {
-      // We will render verification block message on screen instead of alert
     }
     fetchCategories();
   }, [token, user, navigate, fetchCategories]);
@@ -101,6 +100,26 @@ export default function SellerDashboard() {
     }
   }, [activeTab, token, user]);
 
+  // Read selected files and convert to Base64 strings
+  const handleMultipleImagesUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const files = Array.from(e.target.files);
+      const readPromises = files.map((file) => {
+        return new Promise<string>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve(reader.result as string);
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+
+      Promise.all(readPromises).then((base64Strings) => {
+        setUploadedImages((prev) => [...prev, ...base64Strings]);
+      });
+    }
+  };
+
   // Handle Create / Edit Submission
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -121,6 +140,8 @@ export default function SellerDashboard() {
       
       const method = isEditing ? 'PUT' : 'POST';
 
+      const firstImage = uploadedImages[0] || '';
+
       const res = await fetch(url, {
         method,
         headers: {
@@ -129,6 +150,8 @@ export default function SellerDashboard() {
         },
         body: JSON.stringify({
           ...form,
+          imageUrl: firstImage, // fallback first image URL for single-image grids compatibility
+          imagesJson: JSON.stringify(uploadedImages), // complete uploaded images array
           price: form.listingType === 'Donate' ? 0 : Number(form.price),
           categoryId: Number(form.categoryId),
           semester: form.semester ? Number(form.semester) : null
@@ -140,7 +163,7 @@ export default function SellerDashboard() {
 
       setFormSuccess(isEditing ? 'Listing updated successfully!' : 'Listing created successfully!');
       
-      // Clear form on success if not editing
+      // Clear form and images state on success if not editing
       if (!isEditing) {
         setForm({
           name: '',
@@ -155,6 +178,7 @@ export default function SellerDashboard() {
           department: user?.department || '',
           semester: user?.semester ? String(user.semester) : ''
         });
+        setUploadedImages([]);
       }
 
       // Go back to listings list tab after delay
@@ -188,6 +212,18 @@ export default function SellerDashboard() {
       department: prod.department || '',
       semester: prod.semester ? String(prod.semester) : ''
     });
+
+    // Load multiple images from json
+    if (prod.imagesJson) {
+      try {
+        setUploadedImages(JSON.parse(prod.imagesJson));
+      } catch (err) {
+        setUploadedImages(prod.imageUrl ? [prod.imageUrl] : []);
+      }
+    } else {
+      setUploadedImages(prod.imageUrl ? [prod.imageUrl] : []);
+    }
+    
     setActiveTab('form');
   };
 
@@ -242,6 +278,7 @@ export default function SellerDashboard() {
   const handleCreateClick = () => {
     setIsEditing(false);
     setEditId(null);
+    setUploadedImages([]);
     setForm({
       name: '',
       description: '',
@@ -610,14 +647,31 @@ export default function SellerDashboard() {
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Image URL</label>
+                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Upload Product Images (Select multiple)</label>
                     <input
-                      type="url"
-                      placeholder="https://images.unsplash.com/photo..."
-                      value={form.imageUrl}
-                      onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
+                      type="file"
+                      multiple
+                      accept="image/*"
+                      onChange={handleMultipleImagesUpload}
                       style={{ width: '100%', padding: '0.7rem 0.9rem', borderRadius: '8px', border: '1px solid var(--card-border)', background: 'rgba(255,255,255,0.03)', color: 'var(--text-primary)' }}
                     />
+                    
+                    {uploadedImages.length > 0 && (
+                      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
+                        {uploadedImages.map((img, idx) => (
+                          <div key={idx} style={{ position: 'relative', width: '70px', height: '70px', borderRadius: '6px', overflow: 'hidden', border: '1px solid var(--card-border)' }}>
+                            <img src={img} alt="preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            <button
+                              type="button"
+                              onClick={() => setUploadedImages(prev => prev.filter((_, i) => i !== idx))}
+                              style={{ position: 'absolute', top: 0, right: 0, background: 'rgba(239, 68, 68, 0.8)', border: 'none', color: '#fff', fontSize: '0.7rem', padding: '0.1rem 0.3rem', cursor: 'pointer', borderRadius: '0 0 0 4px' }}
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
 

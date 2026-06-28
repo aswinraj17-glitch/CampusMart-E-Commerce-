@@ -67,6 +67,7 @@ model Product {
   description    String?           @db.Text
   price          Decimal           @db.Decimal(10, 2)
   imageUrl       String?           @db.Text
+  imagesJson     String?           @db.LongText
   condition      String            @default("New") // New, Used
   collegeName    String?
   contactDetails String?

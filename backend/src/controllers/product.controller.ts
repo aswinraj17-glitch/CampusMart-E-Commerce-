@@ -171,6 +171,7 @@ export const createProduct = async (req: any, res: Response) => {
     description, 
     price, 
     imageUrl, 
+    imagesJson,
     condition, 
     collegeName, 
     contactDetails, 
@@ -192,6 +193,7 @@ export const createProduct = async (req: any, res: Response) => {
         description,
         price: Number(price),
         imageUrl: imageUrl || '',
+        imagesJson: imagesJson || null,
         condition: condition || 'New',
         collegeName: collegeName || null,
         contactDetails: contactDetails || null,
@@ -238,7 +240,7 @@ export const createProduct = async (req: any, res: Response) => {
 
 export const updateProduct = async (req: any, res: Response) => {
   const { id } = req.params;
-  const { name, description, price, imageUrl, condition, collegeName, contactDetails, categoryId, listingType, department, semester } = req.body;
+  const { name, description, price, imageUrl, imagesJson, condition, collegeName, contactDetails, categoryId, listingType, department, semester } = req.body;
   const userId = req.user.id;
   const role = req.user.role;
 
@@ -260,6 +262,7 @@ export const updateProduct = async (req: any, res: Response) => {
         description: description !== undefined ? description : product.description,
         price: price !== undefined ? Number(price) : product.price,
         imageUrl: imageUrl !== undefined ? imageUrl : product.imageUrl,
+        imagesJson: imagesJson !== undefined ? imagesJson : product.imagesJson,
         condition: condition !== undefined ? condition : product.condition,
         collegeName: collegeName !== undefined ? collegeName : product.collegeName,
         contactDetails: contactDetails !== undefined ? contactDetails : product.contactDetails,

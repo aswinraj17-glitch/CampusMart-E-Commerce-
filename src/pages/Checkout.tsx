@@ -8,6 +8,15 @@ export default function Checkout() {
   const { token, user } = useAuth();
   const navigate = useNavigate();
 
+  // Check if cart contains items from another college campus
+  const isCrossCollege = cart.some(
+    item => item.product.collegeName && user?.verification?.collegeName &&
+            item.product.collegeName.toLowerCase() !== user.verification.collegeName.toLowerCase()
+  );
+
+  const deliveryCharge = isCrossCollege ? 40 : 0;
+  const finalTotal = cartTotal + deliveryCharge;
+
   const [form, setForm] = useState({
     fullName: '',
     phone: '',
@@ -70,7 +79,13 @@ export default function Checkout() {
 
     try {
       const items = cart.map(item => ({ productId: item.productId, quantity: item.quantity }));
-      const payload = { ...form, items };
+      const payload = {
+        ...form,
+        meetupOption: isCrossCollege 
+          ? 'Campus (Delivery Agent)' 
+          : (form.meetupOption + ' (Self Handover)'),
+        items
+      };
       
       const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000';
       const res = await fetch(`${API_BASE}/api/orders`, {
@@ -339,9 +354,27 @@ export default function Checkout() {
             </div>
           </div>
 
-          <div style={{ borderTop: '1px solid var(--card-border)', paddingTop: '1.25rem', marginTop: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <span style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Grand Total:</span>
-            <span style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--accent-secondary)' }}>₹{cartTotal.toLocaleString('en-IN')}</span>
+          {isCrossCollege && (
+            <div className="glass" style={{ padding: '0.8rem 1rem', borderRadius: '8px', border: '1px solid rgba(251, 191, 36, 0.2)', color: '#fbbf24', fontSize: '0.82rem', background: 'rgba(251, 191, 36, 0.03)', marginTop: '0.5rem', lineHeight: 1.5 }}>
+              ⚠️ <strong>Cross-Campus Handover:</strong> Products from different college campus detected. The delivery will be securely routed via a <strong>CampusMart Delivery Boy Agent</strong>.
+            </div>
+          )}
+
+          <div style={{ borderTop: '1px solid var(--card-border)', paddingTop: '1.25rem', marginTop: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>Items Subtotal:</span>
+              <span style={{ fontSize: '1.05rem', fontWeight: 600 }}>₹{cartTotal.toLocaleString('en-IN')}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '0.95rem', color: 'var(--text-secondary)' }}>Delivery Fee (Agent):</span>
+              <span style={{ fontSize: '1.05rem', fontWeight: 600, color: isCrossCollege ? 'var(--accent-secondary)' : '#34d399' }}>
+                {isCrossCollege ? '₹40' : 'FREE'}
+              </span>
+            </div>
+            <div style={{ borderTop: '1px dashed var(--card-border)', paddingTop: '0.6rem', marginTop: '0.2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-secondary)' }}>Grand Total:</span>
+              <span style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--accent-secondary)' }}>₹{finalTotal.toLocaleString('en-IN')}</span>
+            </div>
           </div>
 
           <button

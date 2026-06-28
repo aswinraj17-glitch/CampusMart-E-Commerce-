@@ -26,17 +26,32 @@ export const createOrder = async (req: any, res: Response) => {
   }
 
   try {
+    // Fetch buyer college verification info
+    const buyer = await prisma.user.findUnique({
+      where: { id: userId },
+      include: { collegeverification: true }
+    });
+
+    const buyerCollege = buyer?.collegeverification?.collegeName;
+
     // 1. Fetch product prices and details to calculate total
     const dbProducts = await Promise.all(
       items.map(it => prisma.product.findUnique({ where: { id: Number(it.productId) } }))
     );
 
     let total = new Prisma.Decimal(0);
+    let isCrossCollege = false;
+
     const orderItemsData = items.map((it, idx) => {
       const prod = dbProducts[idx];
       if (!prod) {
         throw new Error(`Product with ID ${it.productId} not found`);
       }
+
+      if (prod.collegeName && buyerCollege && prod.collegeName.toLowerCase() !== buyerCollege.toLowerCase()) {
+        isCrossCollege = true;
+      }
+
       const itemPrice = new Prisma.Decimal(prod.price as any);
       total = total.add(itemPrice.mul(it.quantity));
 
@@ -48,6 +63,11 @@ export const createOrder = async (req: any, res: Response) => {
         productImage: prod.imageUrl
       };
     });
+
+    // Add ₹40 delivery boy fee if buyer and seller are in different colleges
+    if (isCrossCollege) {
+      total = total.add(new Prisma.Decimal(40));
+    }
 
     // 2. Start database transaction to create order, save order items, create payment, clear cart, and record meetup details
     const result = await prisma.$transaction(async (tx) => {

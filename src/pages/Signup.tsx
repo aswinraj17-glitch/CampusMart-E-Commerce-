@@ -3,28 +3,69 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const DEPARTMENTS = [
-  'Computer Science & Engineering (CSE)',
-  'Information Technology (IT)',
-  'Electronics & Communication Engineering (ECE)',
-  'Electrical & Electronics Engineering (EEE)',
-  'Mechanical Engineering (Mech)',
-  'Civil Engineering (Civil)',
-  'Chemical Engineering',
-  'Biotechnology',
-  'Aerospace Engineering',
-  'Biomedical Engineering',
-  'B.Sc Computer Science',
+  // Engineering Streams
+  'B.E. Computer Science & Engineering (CSE)',
+  'B.Tech. Information Technology (IT)',
+  'B.E. Electronics & Communication Engineering (ECE)',
+  'B.E. Electrical & Electronics Engineering (EEE)',
+  'B.E. Mechanical Engineering (Mech)',
+  'B.E. Civil Engineering (Civil)',
+  'B.E. Biomedical Engineering',
+  'B.Tech. Biotechnology',
+  'B.Tech. Artificial Intelligence & Data Science (AI&DS)',
+  'B.E. Agricultural Engineering',
+  
+  // Arts & Science Streams
+  'B.Sc. Computer Science',
+  'B.Sc. Physics',
+  'B.Sc. Chemistry',
+  'B.Sc. Mathematics',
+  'B.Sc. Biotechnology',
   'BCA (Computer Applications)',
-  'B.Sc Physics',
-  'B.Sc Chemistry',
-  'B.Sc Mathematics',
-  'B.A English Literature',
-  'B.A Economics',
-  'B.Com (Commerce)',
+  'B.Com. (General Commerce)',
+  'B.Com. (Computer Applications)',
+  'B.A. English Literature',
+  'B.A. Economics',
   'BBA (Business Administration)',
-  'MBA (Management)',
-  'MBBS / Medicine',
-  'B.Pharm (Pharmacy)'
+  'MBA (Master of Business Administration)',
+  'M.Sc. Computer Science',
+  
+  // Pharmacy & Medical Streams
+  'B.Pharm. (Bachelor of Pharmacy)',
+  'M.Pharm. (Master of Pharmacy)',
+  'Pharm.D. (Doctor of Pharmacy)',
+  'B.Sc. Nursing',
+  'BPT (Physiotherapy)'
+];
+
+const TAMILNADU_COLLEGES = [
+  'Sri Shanmugha College of Engineering and Technology, Salem',
+  'College of Engineering, Guindy (CEG), Chennai',
+  'Madras Institute of Technology (MIT), Chromepet',
+  'PSG College of Technology, Coimbatore',
+  'SSN College of Engineering, Chennai',
+  'Thiagarajar College of Engineering (TCE), Madurai',
+  'Government College of Technology (GCT), Coimbatore',
+  'Coimbatore Institute of Technology (CIT), Coimbatore',
+  'Kongu Engineering College, Erode',
+  'Bannari Amman Institute of Technology, Sathyamangalam',
+  'Kumaraguru College of Technology (KCT), Coimbatore',
+  'Sathyabama Institute of Science and Technology, Chennai',
+  'Vel Tech Rangarajan Dr. Sagunthala R&D Institute, Chennai',
+  'St. Josephs College of Engineering, Chennai',
+  'Panimalar Engineering College, Chennai',
+  'Loyola College, Chennai',
+  'Madras Christian College (MCC), Chennai',
+  'Presidency College, Chennai',
+  'Stella Maris College, Chennai',
+  'PSG College of Arts and Science, Coimbatore',
+  'Government College of Engineering, Salem',
+  'KSR College of Engineering, Tiruchengode',
+  'Mepco Schlenk Engineering College, Sivakasi',
+  'Sona College of Technology, Salem',
+  'Knowledge Institute of Technology, Salem',
+  'Madras Medical College, Chennai',
+  'PSG Institute of Medical Sciences, Coimbatore'
 ];
 
 export default function Signup() {
@@ -36,6 +77,7 @@ export default function Signup() {
   
   // Verification details
   const [collegeName, setCollegeName] = useState('');
+  const [showCollegeSuggestions, setShowCollegeSuggestions] = useState(false);
   const [department, setDepartment] = useState('');
   const [yearOfStudy, setYearOfStudy] = useState('1');
   const [semester, setSemester] = useState('1');
@@ -213,31 +255,75 @@ export default function Signup() {
           <h3 style={{ fontSize: '1.1rem', borderBottom: '1px solid var(--card-border)', paddingBottom: '0.4rem', color: 'var(--accent-secondary)', marginTop: '0.5rem' }}>College Verification</h3>
 
           <div className="form-row">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', position: 'relative', flexGrow: 1 }}>
               <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
                 College Name
               </label>
-              <select
+              <input
+                type="text"
+                placeholder="Type to search college (e.g. Sri Shanmugha...)"
                 value={collegeName}
-                onChange={e => setCollegeName(e.target.value)}
+                onChange={e => {
+                  setCollegeName(e.target.value);
+                  setShowCollegeSuggestions(true);
+                }}
+                onFocus={() => setShowCollegeSuggestions(true)}
+                onBlur={() => setTimeout(() => setShowCollegeSuggestions(false), 200)}
                 required
                 style={{
                   width: '100%',
                   padding: '0.75rem 1rem',
                   borderRadius: '8px',
                   border: '1px solid var(--card-border)',
-                  background: 'var(--bg-main)',
+                  background: 'rgba(255, 255, 255, 0.03)',
                   color: 'var(--text-primary)',
                   outline: 'none'
                 }}
-              >
-                <option value="">Select College</option>
-                <option value="Anna University">Anna University</option>
-                <option value="IIT Madras">IIT Madras</option>
-                <option value="PSG Tech">PSG Tech</option>
-                <option value="VIT Vellore">VIT Vellore</option>
-                <option value="SRM University">SRM University</option>
-              </select>
+              />
+              {showCollegeSuggestions && collegeName.trim() && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  right: 0,
+                  background: 'var(--bg-main)',
+                  border: '1px solid var(--card-border)',
+                  borderRadius: '8px',
+                  marginTop: '0.25rem',
+                  maxHeight: '180px',
+                  overflowY: 'auto',
+                  zIndex: 999,
+                  boxShadow: '0 8px 16px rgba(0,0,0,0.3)'
+                }}>
+                  {TAMILNADU_COLLEGES.filter(c => c.toLowerCase().includes(collegeName.toLowerCase())).length > 0 ? (
+                    TAMILNADU_COLLEGES.filter(c => c.toLowerCase().includes(collegeName.toLowerCase())).map((col, idx) => (
+                      <div
+                        key={idx}
+                        onClick={() => {
+                          setCollegeName(col);
+                          setShowCollegeSuggestions(false);
+                        }}
+                        style={{
+                          padding: '0.6rem 1rem',
+                          cursor: 'pointer',
+                          borderBottom: '1px solid rgba(255,255,255,0.02)',
+                          fontSize: '0.85rem',
+                          color: 'var(--text-primary)',
+                          textAlign: 'left'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(6, 182, 212, 0.1)'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      >
+                        🏫 {col}
+                      </div>
+                    ))
+                  ) : (
+                    <div style={{ padding: '0.6rem 1rem', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                      No matching college found. You can continue typing custom name.
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>

@@ -483,7 +483,7 @@ export default function Checkout() {
           backdropFilter: 'blur(8px)'
         }}>
           <div className="glass" style={{
-            width: '380px',
+            width: '400px',
             borderRadius: '24px',
             overflow: 'hidden',
             border: '1px solid var(--card-border)',
@@ -524,44 +524,80 @@ export default function Checkout() {
               <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0 }}>
                 {selectedUPIApp === 'GPay' ? '🔵 Google Pay' : '🟣 PhonePe'}
               </h2>
-              <p style={{ fontSize: '0.8rem', opacity: 0.8, margin: '0.25rem 0 0 0' }}>UPI Payment Gateway Simulator</p>
+              <p style={{ fontSize: '0.8rem', opacity: 0.8, margin: '0.25rem 0 0 0' }}>Launch Native App & Complete Handover Payment</p>
             </div>
 
             {/* Content Body */}
-            <div style={{ padding: '2rem 1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.5rem' }}>
+            <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.2rem' }}>
               {upiProcessing ? (
                 <div style={{ textAlign: 'center', padding: '2rem 0' }}>
                   <div className="spinner" style={{ margin: '0 auto 1.5rem auto', width: '50px', height: '50px', border: '4px solid rgba(255,255,255,0.1)', borderTopColor: 'var(--accent-primary)', borderRadius: '50%' }}></div>
-                  <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.5rem' }}>Processing Secure UPI Transaction...</h4>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Please do not close this window or click back.</p>
+                  <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.5rem' }}>Verifying Transaction...</h4>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Securing transaction token. Please wait.</p>
                 </div>
               ) : (
                 <>
-                  {/* Merchant / Price card */}
-                  <div style={{ textAlign: 'center', width: '100%', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '12px', border: '1px solid var(--card-border)' }}>
-                    <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Paying Merchant:</span>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, margin: '0.2rem 0 0.5rem 0' }}>CampusMart Peer Exchange</h3>
-                    <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--accent-secondary)', margin: 0 }}>
+                  {/* Amount Card */}
+                  <div style={{ textAlign: 'center', width: '100%', background: 'rgba(255,255,255,0.02)', padding: '0.8rem', borderRadius: '12px', border: '1px solid var(--card-border)' }}>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Amount to Pay:</span>
+                    <h2 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--accent-secondary)', margin: '0.1rem 0 0 0' }}>
                       ₹{finalTotal.toLocaleString('en-IN')}
                     </h2>
                   </div>
 
-                  {/* PIN Display */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem', width: '100%' }}>
-                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-secondary)', letterSpacing: '0.05em' }}>
-                      ENTER 4-DIGIT UPI PIN
-                    </label>
-                    <div style={{ display: 'flex', gap: '0.8rem', margin: '0.5rem 0' }}>
+                  {/* Deep Link CTA Button */}
+                  <a
+                    href={`upi://pay?pa=aswinraj17-1@okaxis&pn=CampusMart&am=${finalTotal}&cu=INR&tn=CampusMartOrder`}
+                    style={{
+                      textDecoration: 'none',
+                      width: '100%',
+                      textAlign: 'center',
+                      padding: '0.8rem',
+                      borderRadius: '8px',
+                      background: selectedUPIApp === 'GPay' ? '#1a73e8' : '#5f259f',
+                      color: '#fff',
+                      fontWeight: 700,
+                      fontSize: '0.95rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+                    }}
+                  >
+                    📲 Open {selectedUPIApp === 'GPay' ? 'Google Pay' : 'PhonePe'} App
+                  </a>
+
+                  {/* QR Code Segment */}
+                  <div style={{ textAlign: 'center', width: '100%' }}>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                      Or scan this QR code on your phone to pay directly:
+                    </p>
+                    <div style={{ background: '#fff', padding: '0.75rem', borderRadius: '12px', display: 'inline-block', border: '1px solid rgba(255,255,255,0.1)' }}>
+                      <img
+                        src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(
+                          `upi://pay?pa=aswinraj17-1@okaxis&pn=CampusMart&am=${finalTotal}&cu=INR&tn=CampusMartOrder`
+                        )}`}
+                        alt="UPI Payment QR Code"
+                        style={{ display: 'block', width: '160px', height: '160px' }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Verification & Pin display */}
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem', width: '100%', borderTop: '1px solid var(--card-border)', paddingTop: '1rem' }}>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>UPI PIN CONFIRMATION</span>
+                    <div style={{ display: 'flex', gap: '0.8rem', margin: '0.2rem 0' }}>
                       {[...Array(4)].map((_, idx) => (
                         <div
                           key={idx}
                           style={{
-                            width: '18px',
-                            height: '18px',
+                            width: '14px',
+                            height: '14px',
                             borderRadius: '50%',
                             border: '2px solid var(--accent-primary)',
                             background: upiPin.length > idx ? 'var(--accent-primary)' : 'transparent',
-                            transition: 'all 0.15s ease'
+                            transition: 'all 0.1s ease'
                           }}
                         />
                       ))}
@@ -572,9 +608,9 @@ export default function Checkout() {
                   <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(3, 1fr)',
-                    gap: '0.75rem',
+                    gap: '0.5rem',
                     width: '100%',
-                    maxWidth: '240px'
+                    maxWidth: '220px'
                   }}>
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                       <button
@@ -584,16 +620,16 @@ export default function Checkout() {
                           if (upiPin.length < 4) setUpiPin(prev => prev + num);
                         }}
                         style={{
-                          padding: '0.85rem',
-                          fontSize: '1.2rem',
+                          padding: '0.6rem',
+                          fontSize: '1.1rem',
                           fontWeight: 700,
                           borderRadius: '50%',
                           border: '1px solid var(--card-border)',
                           background: 'rgba(255,255,255,0.02)',
                           color: 'var(--text-primary)',
                           cursor: 'pointer',
-                          width: '56px',
-                          height: '56px',
+                          width: '46px',
+                          height: '46px',
                           margin: '0 auto',
                           display: 'flex',
                           alignItems: 'center',
@@ -608,16 +644,16 @@ export default function Checkout() {
                       type="button"
                       onClick={() => setUpiPin('')}
                       style={{
-                        padding: '0.5rem',
-                        fontSize: '0.75rem',
+                        padding: '0.4rem',
+                        fontSize: '0.7rem',
                         fontWeight: 700,
                         borderRadius: '50%',
                         border: '1px solid rgba(239, 68, 68, 0.2)',
                         background: 'rgba(239, 68, 68, 0.05)',
                         color: '#f87171',
                         cursor: 'pointer',
-                        width: '56px',
-                        height: '56px',
+                        width: '46px',
+                        height: '46px',
                         margin: '0 auto',
                         display: 'flex',
                         alignItems: 'center',
@@ -625,7 +661,7 @@ export default function Checkout() {
                         outline: 'none'
                       }}
                     >
-                      CLEAR
+                      CLR
                     </button>
                     <button
                       type="button"
@@ -633,16 +669,16 @@ export default function Checkout() {
                         if (upiPin.length < 4) setUpiPin(prev => prev + '0');
                       }}
                       style={{
-                        padding: '0.85rem',
-                        fontSize: '1.2rem',
+                        padding: '0.6rem',
+                        fontSize: '1.1rem',
                         fontWeight: 700,
                         borderRadius: '50%',
                         border: '1px solid var(--card-border)',
                         background: 'rgba(255,255,255,0.02)',
                         color: 'var(--text-primary)',
                         cursor: 'pointer',
-                        width: '56px',
-                        height: '56px',
+                        width: '46px',
+                        height: '46px',
                         margin: '0 auto',
                         display: 'flex',
                         alignItems: 'center',
@@ -656,16 +692,16 @@ export default function Checkout() {
                       type="button"
                       onClick={() => setUpiPin(prev => prev.slice(0, -1))}
                       style={{
-                        padding: '0.5rem',
-                        fontSize: '0.75rem',
+                        padding: '0.4rem',
+                        fontSize: '0.7rem',
                         fontWeight: 700,
                         borderRadius: '50%',
                         border: '1px solid var(--card-border)',
                         background: 'rgba(255,255,255,0.05)',
                         color: 'var(--text-secondary)',
                         cursor: 'pointer',
-                        width: '56px',
-                        height: '56px',
+                        width: '46px',
+                        height: '46px',
                         margin: '0 auto',
                         display: 'flex',
                         alignItems: 'center',
@@ -677,27 +713,26 @@ export default function Checkout() {
                     </button>
                   </div>
 
-                  {/* Confirm CTA */}
+                  {/* Submit CTA */}
                   <button
                     type="button"
                     onClick={handleConfirmUPIPayment}
                     disabled={upiPin.length < 4}
                     style={{
                       width: '100%',
-                      padding: '0.85rem',
-                      borderRadius: '10px',
+                      padding: '0.8rem',
+                      borderRadius: '8px',
                       border: 'none',
-                      background: upiPin.length < 4 ? 'var(--card-border)' : (selectedUPIApp === 'GPay' ? '#1a73e8' : '#5f259f'),
+                      background: upiPin.length < 4 ? 'var(--card-border)' : '#10b981',
                       color: '#fff',
                       fontWeight: 700,
                       cursor: upiPin.length < 4 ? 'not-allowed' : 'pointer',
-                      fontSize: '1rem',
-                      marginTop: '0.5rem',
-                      transition: 'all 0.2s ease',
-                      boxShadow: upiPin.length < 4 ? 'none' : '0 4px 12px rgba(0,0,0,0.2)'
+                      fontSize: '0.95rem',
+                      marginTop: '0.4rem',
+                      boxShadow: upiPin.length < 4 ? 'none' : '0 4px 12px rgba(16, 185, 129, 0.2)'
                     }}
                   >
-                    PAY SECURELY ₹{finalTotal.toLocaleString('en-IN')}
+                    🚀 Verify PIN & Confirm Order
                   </button>
                 </>
               )}

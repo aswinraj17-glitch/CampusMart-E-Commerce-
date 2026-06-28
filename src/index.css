@@ -3,28 +3,27 @@
 :root {
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   
-  /* Color Palette - Soft Cream & Pastel Light Theme */
-  --bg-main: #FCFAF6; /* Soft Cream background */
-  --bg-gradient: linear-gradient(135deg, #FCFAF6 0%, #F5F1E9 100%);
-  --card-bg: rgba(255, 255, 255, 0.75); /* Crisp White frosted glass */
-  --card-border: rgba(183, 164, 227, 0.22); /* Lavender accent border */
-  --card-hover-bg: rgba(255, 255, 255, 0.9);
-  --card-hover-border: rgba(183, 164, 227, 0.45);
+  /* Color Palette - Premium Dark Theme */
+  --bg-main: #0a0813;
+  --bg-gradient: radial-gradient(circle at 50% 0%, #1a1535 0%, #0a0813 70%);
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --card-hover-bg: rgba(255, 255, 255, 0.06);
+  --card-hover-border: rgba(255, 255, 255, 0.15);
   
-  --text-primary: #332B40; /* Dark Charcoal Lavender for maximum legibility */
-  --text-secondary: #584F66; /* Muted Dark Lavender */
-  --text-muted: #847A94;
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
   
-  /* Soft Pastel Accents (Text-readable contrast) */
-  --accent-primary: #8C73C5; /* Pastel Lavender */
-  --accent-secondary: #2C9E90; /* Pastel Light Aqua */
-  --accent-tertiary: #D65A81; /* Pastel Soft Pink */
-  --gradient-accent: linear-gradient(135deg, #D65A81 0%, #8C73C5 50%, #2C9E90 100%); /* Pink to Lavender to Aqua */
-  --gradient-accent-hover: linear-gradient(135deg, #E2799A 0%, #A38EDA 50%, #43BCAE 100%);
-  --glow-shadow: 0 8px 25px rgba(140, 115, 197, 0.18);
+  /* Accent Gradients */
+  --accent-primary: #8b5cf6; /* Violet */
+  --accent-secondary: #06b6d4; /* Cyan */
+  --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+  --gradient-accent-hover: linear-gradient(135deg, #a78bfa 0%, #22d3ee 100%);
+  --glow-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
   
   font-family: var(--font-sans);
-  color-scheme: light;
+  color-scheme: dark;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -65,11 +64,11 @@ body {
   background: var(--bg-main);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(140, 115, 197, 0.25);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(140, 115, 197, 0.4);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* App Layout & Content Wrapper */

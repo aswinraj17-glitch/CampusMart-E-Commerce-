@@ -4,6 +4,31 @@ import { useProducts } from '../context/ProductContext';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 
+const DEPARTMENTS = [
+  'Computer Science & Engineering (CSE)',
+  'Information Technology (IT)',
+  'Electronics & Communication Engineering (ECE)',
+  'Electrical & Electronics Engineering (EEE)',
+  'Mechanical Engineering (Mech)',
+  'Civil Engineering (Civil)',
+  'Chemical Engineering',
+  'Biotechnology',
+  'Aerospace Engineering',
+  'Biomedical Engineering',
+  'B.Sc Computer Science',
+  'BCA (Computer Applications)',
+  'B.Sc Physics',
+  'B.Sc Chemistry',
+  'B.Sc Mathematics',
+  'B.A English Literature',
+  'B.A Economics',
+  'B.Com (Commerce)',
+  'BBA (Business Administration)',
+  'MBA (Management)',
+  'MBBS / Medicine',
+  'B.Pharm (Pharmacy)'
+];
+
 export default function Products() {
   const { products, categories, fetchProducts, totalPages, currentPage, loading, error } = useProducts();
   const { addToCart } = useCart();
@@ -251,9 +276,7 @@ export default function Products() {
           {/* Department */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
             <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Department</label>
-            <input
-              type="text"
-              placeholder="e.g. Computer Science"
+            <select
               value={deptFilter}
               onChange={(e) => setDeptFilter(e.target.value)}
               style={{
@@ -261,10 +284,16 @@ export default function Products() {
                 padding: '0.6rem 0.8rem',
                 borderRadius: '8px',
                 border: '1px solid var(--card-border)',
-                background: 'rgba(255,255,255,0.03)',
-                color: 'var(--text-primary)'
+                background: 'var(--bg-main)',
+                color: 'var(--text-primary)',
+                outline: 'none'
               }}
-            />
+            >
+              <option value="">All Departments</option>
+              {DEPARTMENTS.map((dept, idx) => (
+                <option key={idx} value={dept}>{dept}</option>
+              ))}
+            </select>
           </div>
 
           {/* Semester */}

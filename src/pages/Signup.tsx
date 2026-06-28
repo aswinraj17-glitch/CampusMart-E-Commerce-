@@ -2,6 +2,31 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
+const DEPARTMENTS = [
+  'Computer Science & Engineering (CSE)',
+  'Information Technology (IT)',
+  'Electronics & Communication Engineering (ECE)',
+  'Electrical & Electronics Engineering (EEE)',
+  'Mechanical Engineering (Mech)',
+  'Civil Engineering (Civil)',
+  'Chemical Engineering',
+  'Biotechnology',
+  'Aerospace Engineering',
+  'Biomedical Engineering',
+  'B.Sc Computer Science',
+  'BCA (Computer Applications)',
+  'B.Sc Physics',
+  'B.Sc Chemistry',
+  'B.Sc Mathematics',
+  'B.A English Literature',
+  'B.A Economics',
+  'B.Com (Commerce)',
+  'BBA (Business Administration)',
+  'MBA (Management)',
+  'MBBS / Medicine',
+  'B.Pharm (Pharmacy)'
+];
+
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -219,9 +244,7 @@ export default function Signup() {
               <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
                 Department
               </label>
-              <input
-                type="text"
-                placeholder="e.g. Computer Science / Mechanical"
+              <select
                 value={department}
                 onChange={e => setDepartment(e.target.value)}
                 required
@@ -230,11 +253,16 @@ export default function Signup() {
                   padding: '0.75rem 1rem',
                   borderRadius: '8px',
                   border: '1px solid var(--card-border)',
-                  background: 'rgba(255, 255, 255, 0.03)',
+                  background: 'var(--bg-main)',
                   color: 'var(--text-primary)',
                   outline: 'none'
                 }}
-              />
+              >
+                <option value="">Select Department</option>
+                {DEPARTMENTS.map((dept, idx) => (
+                  <option key={idx} value={dept}>{dept}</option>
+                ))}
+              </select>
             </div>
           </div>
 

@@ -29,10 +29,10 @@ export const createOrder = async (req: any, res: Response) => {
     // Fetch buyer college verification info
     const buyer = await prisma.user.findUnique({
       where: { id: userId },
-      include: { collegeverification: true }
+      include: { verification: true }
     });
 
-    const buyerCollege = buyer?.collegeverification?.collegeName;
+    const buyerCollege = buyer?.verification?.collegeName;
 
     // 1. Fetch product prices and details to calculate total
     const dbProducts = await Promise.all(

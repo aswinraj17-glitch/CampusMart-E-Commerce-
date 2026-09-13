@@ -1,7 +1,0 @@
--- AlterTable
-ALTER TABLE `transaction` ADD COLUMN `addressLine` VARCHAR(191) NULL,
-    ADD COLUMN `city` VARCHAR(191) NULL,
-    ADD COLUMN `deliveryDate` DATETIME(3) NULL,
-    ADD COLUMN `state` VARCHAR(191) NULL,
-    ADD COLUMN `status` VARCHAR(191) NOT NULL DEFAULT 'Pending',
-    ADD COLUMN `zipCode` VARCHAR(191) NULL;

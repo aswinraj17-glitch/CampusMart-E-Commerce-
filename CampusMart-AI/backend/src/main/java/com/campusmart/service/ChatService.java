@@ -1,0 +1,3 @@
+package com.campusmart.service;
+import com.campusmart.entity.*;import com.campusmart.repository.*;import com.campusmart.dto.MessageDtos;import org.springframework.stereotype.Service;import java.util.*;
+@Service public class ChatService{private final MessageRepository messages;private final UserService users;public ChatService(MessageRepository m,UserService u){messages=m;users=u;}public List<Message>conversation(Long me,Long other){return messages.findBySenderIdAndReceiverIdOrSenderIdAndReceiverIdOrderBySentAtAsc(me,other,other,me);}public Message send(Long me,MessageDtos.Send d){Message m=new Message();m.setSender(users.get(me));m.setReceiver(users.get(d.receiverId()));m.setContent(d.content().trim());return messages.save(m);}}

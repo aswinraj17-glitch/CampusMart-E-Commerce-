@@ -1,0 +1,1 @@
+package com.campusmart.repository;import com.campusmart.entity.User;import java.util.*;import org.springframework.data.jpa.repository.JpaRepository;public interface UserRepository extends JpaRepository<User,Long>{Optional<User>findByEmail(String email);long countByRole(User.Role role);}

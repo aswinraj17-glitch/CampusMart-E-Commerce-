@@ -1,0 +1,1 @@
+package com.campusmart.repository;import com.campusmart.entity.*;import java.util.*;import org.springframework.data.jpa.repository.JpaRepository;public interface CartItemRepository extends JpaRepository<CartItem,Long>{List<CartItem>findByUserId(Long userId);Optional<CartItem>findByUserIdAndProductId(Long userId,Long productId);void deleteByUserId(Long userId);}

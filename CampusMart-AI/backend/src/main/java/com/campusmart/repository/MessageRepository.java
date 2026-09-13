@@ -1,0 +1,1 @@
+package com.campusmart.repository;import com.campusmart.entity.*;import java.util.*;import org.springframework.data.jpa.repository.JpaRepository;public interface MessageRepository extends JpaRepository<Message,Long>{List<Message>findBySenderIdAndReceiverIdOrSenderIdAndReceiverIdOrderBySentAtAsc(Long s1,Long r1,Long s2,Long r2);}

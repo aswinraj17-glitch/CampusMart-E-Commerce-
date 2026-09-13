@@ -1,0 +1,1 @@
+package com.campusmart.repository;import com.campusmart.entity.*;import java.util.*;import org.springframework.data.jpa.repository.JpaRepository;public interface OrderRepository extends JpaRepository<Order,Long>{List<Order>findByBuyerIdOrderByCreatedAtDesc(Long userId);long countByStatus(Order.Status status);}

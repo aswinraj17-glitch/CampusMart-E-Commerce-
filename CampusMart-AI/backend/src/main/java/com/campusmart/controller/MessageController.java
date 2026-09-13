@@ -1,0 +1,3 @@
+package com.campusmart.controller;
+import com.campusmart.dto.MessageDtos; import com.campusmart.entity.Message; import com.campusmart.service.ChatService; import jakarta.validation.Valid; import org.springframework.security.core.Authentication; import org.springframework.web.bind.annotation.*; import java.util.*;
+@RestController @RequestMapping("/api/messages") public class MessageController {private final ChatService s;public MessageController(ChatService s){this.s=s;}@GetMapping("/{otherId}") public List<Message> conversation(@PathVariable Long otherId,Authentication a){return s.conversation(Long.valueOf(a.getName()),otherId);}@PostMapping public Message send(@Valid @RequestBody MessageDtos.Send d,Authentication a){return s.send(Long.valueOf(a.getName()),d);}}

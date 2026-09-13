@@ -1,0 +1,3 @@
+package com.campusmart.controller;
+import com.campusmart.dto.AuthDtos; import com.campusmart.service.UserService; import jakarta.validation.Valid; import org.springframework.web.bind.annotation.*;
+@RestController @RequestMapping("/api/auth") public class AuthController {private final UserService service; public AuthController(UserService s){service=s;} @PostMapping("/register") public Object register(@Valid @RequestBody AuthDtos.Register r){return service.register(r);} @PostMapping("/login") public AuthDtos.AuthResponse login(@Valid @RequestBody AuthDtos.Login r){return service.login(r);} @PostMapping("/verify") public Object verify(@Valid @RequestBody AuthDtos.Verify r){service.verify(r);return java.util.Map.of("message","Account verified successfully");}}

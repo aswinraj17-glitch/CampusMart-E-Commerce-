@@ -1,0 +1,16 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: campusmart-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: campusmart
+      MYSQL_USER: campusmart
+      MYSQL_PASSWORD: campusmart
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - campusmart_mysql:/var/lib/mysql
+volumes:
+  campusmart_mysql:
